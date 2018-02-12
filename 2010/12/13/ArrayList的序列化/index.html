@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ArrayList的序列化 | 林北正港</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="check API， ArrayList已经实现了java.io.Serializable这个接口。 所以，ArrayList是可以被序列化的。而elementData是transient的, 所以它将不会被保留到新的ArrayList对象中去。 是这样吗？写段代码来验证一下是不是这样呢： 12345678910111213141516171819202122public static void">
+<meta name="keywords" content="java,编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ArrayList的序列化">
+<meta property="og:url" content="http://yoursite.com/2010/12/13/ArrayList的序列化/index.html">
+<meta property="og:site_name" content="林北正港">
+<meta property="og:description" content="check API， ArrayList已经实现了java.io.Serializable这个接口。 所以，ArrayList是可以被序列化的。而elementData是transient的, 所以它将不会被保留到新的ArrayList对象中去。 是这样吗？写段代码来验证一下是不是这样呢： 12345678910111213141516171819202122public static void">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-12T16:26:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ArrayList的序列化">
+<meta name="twitter:description" content="check API， ArrayList已经实现了java.io.Serializable这个接口。 所以，ArrayList是可以被序列化的。而elementData是transient的, 所以它将不会被保留到新的ArrayList对象中去。 是这样吗？写段代码来验证一下是不是这样呢： 12345678910111213141516171819202122public static void">
+  
+    <link rel="alternate" href="/atom.xml" title="林北正港" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">林北正港</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">LIMBAY.ME</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ArrayList的序列化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/12/13/ArrayList的序列化/" class="article-date">
+  <time datetime="2010-12-12T16:19:56.000Z" itemprop="datePublished">2010-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ArrayList的序列化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>check API， ArrayList已经实现了<code>java.io.Serializable</code>这个接口。</p>
+<p>所以，ArrayList是可以被序列化的。<br>而elementData是transient的, 所以它将不会被保留到新的ArrayList对象中去。</p>
+<p>是这样吗？写段代码来验证一下是不是这样呢：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        List&lt;String&gt; elementDataList = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        elementDataList.add(<span class="string">"elementData1"</span>);</span><br><span class="line">        elementDataList.add(<span class="string">"elementData2"</span>);</span><br><span class="line">        elementDataList.add(<span class="string">"elementData3"</span>);</span><br><span class="line">        elementDataList.add(<span class="string">"elementData4"</span>);</span><br><span class="line">        System.out.println(<span class="string">"init our ArrayList object"</span> + elementDataList);</span><br><span class="line">        ObjectOutputStream objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"file4list"</span>));</span><br><span class="line">        objectOutputStream.writeObject(elementDataList);</span><br><span class="line"> </span><br><span class="line">        IOUtils.close(objectOutputStream);</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"file4list"</span>);</span><br><span class="line">        ObjectInputStream objectInputStream = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(file4list));</span><br><span class="line">        List&lt;String&gt; elementDataList_restored = (List&lt;String&gt;)objectInputStream.readObject();</span><br><span class="line">        IOUtils.close(objectInputStream);</span><br><span class="line">        <span class="keyword">if</span>(file.exists())&#123;</span><br><span class="line">            file.delete();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"to restore our ArrayList object"</span> + elementDataList_restored);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//init StringList[elementData1, elementData2, elementData3, elementData4]</span></span><br><span class="line"><span class="comment">//new StringList[elementData1, elementData2, elementData3, elementData4]</span></span><br></pre></td></tr></table></figure>
+<p>为什么新的ArrayList对象却把elementData都还原了呢？</p>
+<p>实际上ArrayList中定义了<code>writeObject</code>和<code>readObject</code>两个方法，而序列化过程中如果定义了这两个方法，<br>JVM会用到这两个来进行序列化和反序列化。如果没有，则调用默认的读、写object的方法，它们分别是 <code>ObjectOutputStream</code> 的 <code>defaultWriteObject</code> 方法以及 <code>ObjectInputStream</code> 的 <code>defaultReadObject</code> 方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2010/12/13/ArrayList的序列化/" data-id="cjdkfm4a6000020yfd79g0r3q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/05/11/记一记本年度3-4至5-17某女天雷滚滚狗血乱喷的语录/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          记一记本年度3.4至5.17某女天雷滚滚狗血乱喷的语录
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/12/11/Java序列化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java序列化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程/">编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/区块链/" style="font-size: 10px;">区块链</a> <a href="/tags/编程/" style="font-size: 20px;">编程</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">十二月 2010</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/12/区块链/">区块链</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/16/my-study-plan/">my study plan</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/02/wooh-is-dead/">wooh is dead</a>
+          </li>
+        
+          <li>
+            <a href="/2011/09/01/volatile和双锁模式的代码分析/">volatile和双锁模式的代码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2011/05/11/记一记本年度3-4至5-17某女天雷滚滚狗血乱喷的语录/">记一记本年度3.4至5.17某女天雷滚滚狗血乱喷的语录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 limbay.me<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
