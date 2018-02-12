@@ -5,19 +5,20 @@
   
 
   
-  <title>limbay.me</title>
+  <title>林北正港</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="林北正港">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="林北正港">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="林北正港">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="林北正港" type="application/atom+xml">
   
   
-    <link rel="icon" href="/limbay.ico">
+    <link rel="icon" href="/favicon.png">
   
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -33,8 +34,12 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">林北正港</a>
       </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">LIMBAY.ME</a>
+        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -50,7 +55,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -88,7 +93,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/12/区块链/" data-id="cjdk9p7m700051ayfg6f0erom" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/12/区块链/" data-id="cjdkb8lrm0001dmyfajg53nil" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -122,22 +127,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><code>public class CachePool{
-   private volatile static CachePool sharedPool;
-   private CachePool(){}
-   public static CachePool getSharedPool(){
-      if(sharedPool==null)
-      {
-         synchronized(CachePool.class){
-            if(sharedPool==null){
-               sharedPool=new CachePool();
-            }
-         }
-      }
-      return sharedPool;
-   }
-   //其他方法
-}</code></p>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CachePool</span></span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> CachePool sharedPool;</span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">CachePool</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CachePool <span class="title">getSharedPool</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(sharedPool==<span class="keyword">null</span>)</span><br><span class="line">      &#123;</span><br><span class="line">         <span class="keyword">synchronized</span>(CachePool.class)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sharedPool==<span class="keyword">null</span>)&#123;</span><br><span class="line">               sharedPool=<span class="keyword">new</span> CachePool();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> sharedPool;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//其他方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上是存取CachePool对象的一段代码。<br>这里用到了volatile和两个if block来存取唯一化的CachePool的对象。<br>为什么既然这里用到了volatile，为什么要用到两个if block呢？<br>为什么不把synchronized来定义getSharedPool()方法呢？ </p>
 <p>假设我们synchronized整个getSharedPool(),那么我们每次用CachePool.getSharedPool()去取得sharedPool对象的时候，都要执行同步，这样会对性能造成影响。因此我们把syncronized抽开，放到第一个if block里面去执行，这样就保证了，当sharedPool对象取得之后，就不用再去执行这个同步化的if block。 </p>
 <p>我们假设两个线程t1和t2，分别开始在栈1和栈2执行getSharedPool()方法，t1判断到sharedPool是null， t2也判断是null， 因此t1, t2同时进入第一个if block, 假设t1比t2稍快执行同步部分，t1就率先实例化了CachePool这个类，把实例化的sharedPool返回，并把钥匙交给t2，t2要进入这个t2内存空间的cachePool还是null吗？如果sharedPool对象没有声明volatile，t2内存里读取的值就还是null，那么就还要new一次！不过这里sharedPool被volatile了，t2和t2对这个值是共享内存，因此t2读到的不再是null，因此，不再执行第二个if block，直接返回第一个new出来的对象的引用。 </p>
@@ -147,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2011/09/01/volatile和双锁模式的代码分析/" data-id="cjdk9p7lt00001ayf0ej6bfzg" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2011/09/01/volatile和双锁模式的代码分析/" data-id="cjdkb8lrj0000dmyfnx6175dq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
@@ -194,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2011/05/11/记一记本年度3-4至5-17某女天雷滚滚狗血乱喷的语录/" data-id="cjdk9p7m900061ayfqbqn2f91" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2011/05/11/记一记本年度3-4至5-17某女天雷滚滚狗血乱喷的语录/" data-id="cjdkb8lrr0003dmyfw8toh8f2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -217,7 +207,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">标签</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程/">编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
     </div>
@@ -227,7 +217,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
       <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/区块链/" style="font-size: 10px;">区块链</a> <a href="/tags/编程/" style="font-size: 10px;">编程</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a>
     </div>
@@ -236,9 +226,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li></ul>
     </div>
   </div>
 
@@ -246,7 +236,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
@@ -274,7 +264,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
+      &copy; 2018 limbay.me<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
