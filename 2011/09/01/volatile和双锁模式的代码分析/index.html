@@ -5,19 +5,19 @@
   
 
   
-  <title>区块链 | Hexo</title>
+  <title>volatile和双锁模式的代码分析 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ETH和智能合约是个很有意义的突破。当然以这个为信仰的就没必要了。对于这个概念，我的兴趣点只在于风口和赚钱。">
-<meta name="keywords" content="区块链,随笔">
+  <meta name="description" content="public class CachePool{    private volatile static CachePool sharedPool;    private CachePool(){}    public static CachePool getSharedPool(){       if(sharedPool==null)       {          synchronized(C">
+<meta name="keywords" content="java,编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="区块链">
-<meta property="og:url" content="http://yoursite.com/2018/02/12/区块链/index.html">
+<meta property="og:title" content="volatile和双锁模式的代码分析">
+<meta property="og:url" content="http://yoursite.com/2011/09/01/volatile和双锁模式的代码分析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ETH和智能合约是个很有意义的突破。当然以这个为信仰的就没必要了。对于这个概念，我的兴趣点只在于风口和赚钱。">
-<meta property="og:updated_time" content="2018-02-12T12:39:15.000Z">
+<meta property="og:description" content="public class CachePool{    private volatile static CachePool sharedPool;    private CachePool(){}    public static CachePool getSharedPool(){       if(sharedPool==null)       {          synchronized(C">
+<meta property="og:updated_time" content="2018-02-12T13:41:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="区块链">
-<meta name="twitter:description" content="ETH和智能合约是个很有意义的突破。当然以这个为信仰的就没必要了。对于这个概念，我的兴趣点只在于风口和赚钱。">
+<meta name="twitter:title" content="volatile和双锁模式的代码分析">
+<meta name="twitter:description" content="public class CachePool{    private volatile static CachePool sharedPool;    private CachePool(){}    public static CachePool getSharedPool(){       if(sharedPool==null)       {          synchronized(C">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -64,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-区块链" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-volatile和双锁模式的代码分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/02/12/区块链/" class="article-date">
-  <time datetime="2018-02-12T12:15:44.000Z" itemprop="datePublished">2018-02-12</time>
+    <a href="/2011/09/01/volatile和双锁模式的代码分析/" class="article-date">
+  <time datetime="2011-09-01T13:37:40.000Z" itemprop="datePublished">2011-09-01</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      区块链
+      volatile和双锁模式的代码分析
     </h1>
   
 
@@ -86,15 +86,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>ETH和智能合约是个很有意义的突破。<br>当然以这个为信仰的就没必要了。<br>对于这个概念，我的兴趣点只在于风口和赚钱。</p>
+        <p><code>public class CachePool{
+   private volatile static CachePool sharedPool;
+   private CachePool(){}
+   public static CachePool getSharedPool(){
+      if(sharedPool==null)
+      {
+         synchronized(CachePool.class){
+            if(sharedPool==null){
+               sharedPool=new CachePool();
+            }
+         }
+      }
+      return sharedPool;
+   }
+   //其他方法
+}</code></p>
+<p>以上是存取CachePool对象的一段代码。<br>这里用到了volatile和两个if block来存取唯一化的CachePool的对象。<br>为什么既然这里用到了volatile，为什么要用到两个if block呢？<br>为什么不把synchronized来定义getSharedPool()方法呢？ </p>
+<p>假设我们synchronized整个getSharedPool(),那么我们每次用CachePool.getSharedPool()去取得sharedPool对象的时候，都要执行同步，这样会对性能造成影响。因此我们把syncronized抽开，放到第一个if block里面去执行，这样就保证了，当sharedPool对象取得之后，就不用再去执行这个同步化的if block。 </p>
+<p>我们假设两个线程t1和t2，分别开始在栈1和栈2执行getSharedPool()方法，t1判断到sharedPool是null， t2也判断是null， 因此t1, t2同时进入第一个if block, 假设t1比t2稍快执行同步部分，t1就率先实例化了CachePool这个类，把实例化的sharedPool返回，并把钥匙交给t2，t2要进入这个t2内存空间的cachePool还是null吗？如果sharedPool对象没有声明volatile，t2内存里读取的值就还是null，那么就还要new一次！不过这里sharedPool被volatile了，t2和t2对这个值是共享内存，因此t2读到的不再是null，因此，不再执行第二个if block，直接返回第一个new出来的对象的引用。 </p>
+<p>之后的线程调用getSharedPool(),第一个if block之后就直接return t1实例化出来的引用了，不再执行同步化的部分。 </p>
+<p>volatie和两个if block，加上一个syncronized，保证了sharedPool的对象唯一。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/12/区块链/" data-id="cjdk9p7m700051ayfg6f0erom" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2011/09/01/volatile和双锁模式的代码分析/" data-id="cjdk9p7lt00001ayf0ej6bfzg" class="article-share-link">Teilen</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
 
     </footer>
   </div>
@@ -102,10 +122,19 @@
     
 <nav id="article-nav">
   
+    <a href="/2018/02/12/区块链/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          区块链
+        
+      </div>
+    </a>
   
-    <a href="/2011/09/01/volatile和双锁模式的代码分析/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2011/05/11/记一记本年度3-4至5-17某女天雷滚滚狗血乱喷的语录/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">volatile和双锁模式的代码分析</div>
+      <div class="article-nav-title">记一记本年度3.4至5.17某女天雷滚滚狗血乱喷的语录</div>
     </a>
   
 </nav>
