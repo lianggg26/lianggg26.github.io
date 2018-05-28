@@ -239,6 +239,132 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/用truffle实现区块链应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="limbay.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林北正港">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/13/用truffle实现区块链应用/" itemprop="url">用truffle实现区块链应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T12:42:06+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>林北的eth实现流程：</p>
+<p>安装truffle<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g truffle</span><br></pre></td></tr></table></figure></p>
+<p>检验安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Larrys-PC:blockchain larry$ truffle</span><br><span class="line">Truffle v4.1.8 - a development framework <span class="keyword">for</span> Ethereum</span><br></pre></td></tr></table></figure></p>
+<p>创建工程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Larrys-PC:blockchain larry$ mkdir -p limbay_eth1</span><br><span class="line">Larrys-PC:blockchain larry$ <span class="built_in">cd</span> limbay_eth1</span><br></pre></td></tr></table></figure></p>
+<p>初始化这个工程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Larrys-PC:limbay_eth1 larry$ truffle init</span><br><span class="line">Downloading...</span><br><span class="line">Unpacking...</span><br><span class="line">Setting up...</span><br><span class="line">Unbox successful. Sweet!</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line"></span><br><span class="line">  Compile:        truffle compile</span><br><span class="line">  Migrate:        truffle migrate</span><br><span class="line">  Test contracts: truffle <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
+<p>看结构：<br>app/ - 你的应用文件运行的默认目录。这里面包括推荐的javascript文件和css样式文件目录，但你可以完全决定如何使用这些目录。<br>contract/ - Truffle默认的合约文件存放地址。<br>migrations/ - 存放发布脚本文件<br>test/ - 用来测试应用和合约的测试文件<br>truffle.js - Truffle的配置文件</p>
+<p>会默认创建一个构建在以太坊内的代币应用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Larrys-PC:limbay_eth1 larry$ tree</span><br><span class="line">.</span><br><span class="line">├── contracts</span><br><span class="line">│   └── Migrations.sol</span><br><span class="line">├── migrations</span><br><span class="line">│   └── 1_initial_migration.js</span><br><span class="line">├── <span class="built_in">test</span></span><br><span class="line">├── truffle-config.js</span><br><span class="line">└── truffle.js</span><br><span class="line"></span><br><span class="line">3 directories, 4 files</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/12/区块链/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1377,131 +1503,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2011/09/01/volatile和双锁模式的代码分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="limbay.me">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="林北正港">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2011/09/01/volatile和双锁模式的代码分析/" itemprop="url">volatile和双锁模式的代码分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2011-09-01T21:37:40+08:00">
-                2011-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CachePool</span></span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> CachePool sharedPool;</span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">CachePool</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CachePool <span class="title">getSharedPool</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(sharedPool==<span class="keyword">null</span>)</span><br><span class="line">      &#123;</span><br><span class="line">         <span class="keyword">synchronized</span>(CachePool.class)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sharedPool==<span class="keyword">null</span>)&#123;</span><br><span class="line">               sharedPool=<span class="keyword">new</span> CachePool();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> sharedPool;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//其他方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上是存取CachePool对象的一段代码。<br>这里用到了volatile和两个if block来存取唯一化的CachePool的对象。<br>为什么既然这里用到了volatile，为什么要用到两个if block呢？<br>为什么不把synchronized来定义getSharedPool()方法呢？ </p>
-<p>假设我们synchronized整个getSharedPool(),那么我们每次用CachePool.getSharedPool()去取得sharedPool对象的时候，都要执行同步，这样会对性能造成影响。因此我们把syncronized抽开，放到第一个if block里面去执行，这样就保证了，当sharedPool对象取得之后，就不用再去执行这个同步化的if block。 </p>
-<p>我们假设两个线程t1和t2，分别开始在栈1和栈2执行getSharedPool()方法，t1判断到sharedPool是null， t2也判断是null， 因此t1, t2同时进入第一个if block, 假设t1比t2稍快执行同步部分，t1就率先实例化了CachePool这个类，把实例化的sharedPool返回，并把钥匙交给t2，t2要进入这个t2内存空间的cachePool还是null吗？如果sharedPool对象没有声明volatile，t2内存里读取的值就还是null，那么就还要new一次！不过这里sharedPool被volatile了，t2和t2对这个值是共享内存，因此t2读到的不再是null，因此，不再执行第二个if block，直接返回第一个new出来的对象的引用。 </p>
-<p>之后的线程调用getSharedPool(),第一个if block之后就直接return t1实例化出来的引用了，不再执行同步化的部分。 </p>
-<p>volatie和两个if block，加上一个syncronized，保证了sharedPool的对象唯一。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1552,7 +1553,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
